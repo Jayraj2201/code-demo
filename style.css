@@ -1,0 +1,48 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: auto;
+    padding: auto;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+#loginContainer, #registerContainer, #dashboard {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+#loginContainer h2, #registerContainer h2, #dashboard h2 {
+    text-align: center;
+}
+
+input[type="text"], input[type="password"], button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+#errorMsg {
+    color: red;
+}
