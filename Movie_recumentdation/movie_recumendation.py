@@ -7,11 +7,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics.pairwise import linear_kernel
 
 # Load Data
-ratings = pd.read_csv('ratings_small.csv')
-credits = pd.read_csv('credits.csv')
-metadata = pd.read_csv('movies_metadata.csv', low_memory=False)
-links = pd.read_csv('links.csv')
-keywords = pd.read_csv('keywords.csv')
+ratings = pd.read_csv('/Users/jayraj/Desktop/study/gitdemo/code-demo/Movie_recumentdation/ratings_small.csv')
+credits = pd.read_csv('/Users/jayraj/Desktop/study/gitdemo/credits.csv')
+metadata = pd.read_csv('/Users/jayraj/Desktop/study/gitdemo/code-demo/Movie_recumentdation/movies_metadata.csv', low_memory=False)
+links = pd.read_csv('/Users/jayraj/Desktop/study/gitdemo/code-demo/Movie_recumentdation/links.csv')
+keywords = pd.read_csv('/Users/jayraj/Desktop/study/gitdemo/code-demo/Movie_recumentdation/keywords.csv')
 
 # Display dataset summaries
 print("Metadata Info:")
@@ -107,10 +107,11 @@ metadata['combined_features'] = (
     metadata['cast'].fillna('') + ' ' +
     metadata['crew'].fillna('')
 )
-
+print(metadata['combined_features'])
 # Limit TF-IDF features
 vectorizer = TfidfVectorizer(stop_words='english', max_features=3000)
 tfidf_matrix = vectorizer.fit_transform(metadata['combined_features'])
+
 
 # Merge with Links to create IMDb URL
 # Convert 'movieId' to string to avoid type mismatch during merge
@@ -118,12 +119,13 @@ links['movieId'] = links['movieId'].astype(str)
 
 # Now merge with Links to create IMDb URL
 metadata = metadata.merge(links, left_on='id', right_on='movieId', how='left')
-
+print('metedata:----\n',metadata)
 # Create IMDb URL
 metadata['imdb_url'] = 'https://www.imdb.com/title/tt' + metadata['imdbId'].astype(str).str.zfill(7)
-
 # Fill missing IMDb URLs
 metadata['imdb_url'] = metadata['imdb_url'].fillna('Unavailable')
+print('metedataimbdb_url:---\n',metadata['imdb_url'])
+
 
 # Efficient similarity calculation
 def recommend_movies(title, metadata, tfidf_matrix, top_n=10):
